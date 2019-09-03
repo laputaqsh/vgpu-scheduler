@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: vgpu-scheduler
+  labels:
+    app: vgpu-scheduler
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: vgpu-scheduler
+  template:
+    metadata:
+      labels:
+        app: vgpu-scheduler
+    spec:
+      hostNetwork: true
+      serviceAccount: vgpu-scheduler
+      containers:
+        - name: vgpu-scheduler
+          image: qsh115713/vgpu-scheduler:v1.0
+          imagePullPolicy: IfNotPresent
