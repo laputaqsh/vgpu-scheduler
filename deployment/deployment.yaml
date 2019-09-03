@@ -18,5 +18,5 @@ spec:
       serviceAccount: vgpu-scheduler
       containers:
         - name: vgpu-scheduler
-          image: qsh115713/vgpu-scheduler:v1.0
+          image: laputaq/vgpu-scheduler:v1.0
           imagePullPolicy: IfNotPresent
