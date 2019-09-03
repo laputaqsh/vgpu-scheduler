@@ -1,3 +1,7 @@
+# Prerequisites
+- Kubernetes 1.15+
+- Golang 1.12+
+
 # How to use it
 ## In Kubernetes Cluster
 ``` bash
