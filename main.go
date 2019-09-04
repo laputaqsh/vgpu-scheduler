@@ -22,11 +22,6 @@ var (
 	podReq   map[*v1.Pod]int
 )
 
-const (
-	resourceName  = "vmware.com/vgpu"
-	schedulerName = "vgpu-scheduler"
-)
-
 type predicateFunc func(node *v1.Node, pod *v1.Pod) bool
 type priorityFunc func(node *v1.Node, pod *v1.Pod) int
 
