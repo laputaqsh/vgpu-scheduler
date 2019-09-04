@@ -14,7 +14,7 @@ spec:
       labels:
         app: vgpu-scheduler
     spec:
-      hostNetwork: true
+      hostNetwork: true # Important!
       serviceAccount: vgpu-scheduler
       containers:
         - name: vgpu-scheduler

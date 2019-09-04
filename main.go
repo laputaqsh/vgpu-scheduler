@@ -77,7 +77,7 @@ func initInformers(clientset *kubernetes.Clientset, podQueue chan *v1.Pod, quit 
 				log.Println("this is not a node")
 				return
 			}
-			log.Printf("New Node Added to Store: %s", node.GetName())
+			log.Printf("new node: %s", node.GetName())
 		},
 	})
 
@@ -100,15 +100,15 @@ func initInformers(clientset *kubernetes.Clientset, podQueue chan *v1.Pod, quit 
 }
 
 func (s *Scheduler) Run(quit chan struct{}) {
-	wait.Until(s.ScheduleOne, 0, quit)
+	wait.Until(s.Schedule, 0, quit)
 }
 
-func (s *Scheduler) ScheduleOne() {
+func (s *Scheduler) Schedule() {
 	pod := <-s.podQueue
 	log.Println("found a pod to schedule:", pod.Namespace+"/"+pod.Name)
 
 	// 找到最合适的Node
-	node, err := s.findFit(pod)
+	node, err := s.findFitNode(pod)
 	if err != nil {
 		log.Println("cannot find node that fits pod", err.Error())
 		return
@@ -132,7 +132,7 @@ func (s *Scheduler) ScheduleOne() {
 	fmt.Println(message)
 }
 
-func (s *Scheduler) findFit(pod *v1.Pod) (string, error) {
+func (s *Scheduler) findFitNode(pod *v1.Pod) (string, error) {
 	nodes, err := s.nodeLister.List(labels.Everything())
 	if err != nil {
 		return "", err
